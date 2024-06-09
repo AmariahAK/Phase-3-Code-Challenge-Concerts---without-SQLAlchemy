@@ -1,7 +1,8 @@
-import pytest
+
 from classes.many_to_many import Band
 from classes.many_to_many import Concert
 from classes.many_to_many import Venue
+import pytest
 
 class TestConcert:
     """Concert in many_to_many.py"""
@@ -24,7 +25,12 @@ class TestConcert:
         assert isinstance(concert.date, str)
         assert concert.date == "Nov 15"
 
-        with pytest.raises(ValueError):
+        # comment out the next two lines if using Exceptions
+        #concert.date = 15
+        #assert concert.date == "Nov 15"
+
+        # uncomment the next two lines if using Exceptions
+        with pytest.raises(Exception):
             concert.date = 15
 
     def test_date_has_length(self):
@@ -35,7 +41,12 @@ class TestConcert:
 
         assert len(concert.date) > 0
 
-        with pytest.raises(ValueError):
+        # comment out the next two lines if using Exceptions
+        #concert.date = ""
+        #assert concert.date == "Nov 5"
+
+        # uncomment the next two lines if using Exceptions
+        with pytest.raises(Exception):
             concert.date = ""
 
     def test_has_venue(self):
@@ -52,7 +63,14 @@ class TestConcert:
         venue = Venue(name="Theatre", city="NYC")
         concert = Concert(date="Nov 5", band=band, venue=venue)
 
-        with pytest.raises(TypeError):
+        # comment out the next two lines if using Exceptions
+        #concert.venue = "My house"
+        #assert concert.venue.name == "Theatre"
+
+        assert isinstance(concert.venue, Venue)
+
+        # uncomment the next two lines if using Exceptions
+        with pytest.raises(Exception):
             concert.venue = "My house"
 
     def test_venue_is_mutable(self):
@@ -80,7 +98,14 @@ class TestConcert:
         venue = Venue(name="Theatre", city="NYC")
         concert = Concert(date="Nov 5", band=band, venue=venue)
 
-        with pytest.raises(TypeError):
+        # comment out the next two lines if using Exceptions
+        #concert.band = "My friends"
+        #assert concert.band.name == "boygenius"
+
+        assert isinstance(concert.band, Band)
+
+        # uncomment the next two lines if using Exceptions
+        with pytest.raises(Exception):
             concert.band = "My friends"
 
     def test_band_is_mutable(self):

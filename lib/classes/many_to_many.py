@@ -1,6 +1,8 @@
 class Band:
     def __init__(self, name, hometown):
         self.name = name
+        if not isinstance(hometown, str):
+            raise ValueError("Hometown must be a string.")
         self._hometown = hometown
 
     @property
@@ -21,7 +23,7 @@ class Band:
     @hometown.setter
     def hometown(self, value):
         # Make hometown immutable
-        raise AttributeError("Hometown attribute is immutable.")
+        raise Exception("Hometown attribute is immutable.")
 
     def concerts(self):
         return [concert for concert in Concert.all if concert.band == self]
