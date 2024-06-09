@@ -1,3 +1,4 @@
+import pytest
 from classes.many_to_many import Band
 from classes.many_to_many import Concert
 from classes.many_to_many import Venue
@@ -20,26 +21,16 @@ class TestVenue:
         assert isinstance(venue_1.name, str)
         assert venue_1.name == "MoonDust"
 
-        # comment out the next two lines if using Exceptions
-        venue_1.name = 7
-        assert venue_1.name == "MoonDust"
-
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     venue_1.name = 7
+        with pytest.raises(TypeError):
+            venue_1.name = 7
 
     def test_name_has_length(self):
         """names are longer than 0 characters"""
         venue_1 = Venue(name="Ace of Spades", city="SAC")
         assert len(venue_1.name) > 0
 
-        # comment out the next two lines if using Exceptions
-        venue_1.name = ""
-        assert venue_1.name == "Ace of Spades"
-
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     venue_1.name = ""
+        with pytest.raises(ValueError):
+            venue_1.name = ""
 
     def test_has_city(self):
         """Venue is instantiated with a city"""
@@ -56,26 +47,16 @@ class TestVenue:
         assert isinstance(venue_1.city, str)
         assert venue_1.city == "NYC"
 
-        # comment out the next two lines if using Exceptions
-        venue_1.city = 7
-        assert venue_1.city == "NYC"
-
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     venue_1.city = 7
+        with pytest.raises(TypeError):
+            venue_1.city = 7
 
     def test_city_has_length(self):
         """cities are longer than 0 characters"""
         venue_1 = Venue(name="Ace of Spades", city="SAC")
         assert len(venue_1.city) > 0
 
-        # comment out the next two lines if using Exceptions
-        venue_1.city = ""
-        assert venue_1.city == "SAC"
-
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     venue_1.city = ""
+        with pytest.raises(ValueError):
+            venue_1.city = ""
 
     def test_concerts(self):
         """venue has many concerts"""
@@ -133,6 +114,7 @@ class TestVenue:
         assert band_1 in venue_1.bands()
         assert band_2 in venue_1.bands()
 
+    # Uncomment and adjust this test if needed
     # def test_concert_on(self):
     #     """returns the first concert on that date or None if no concerts exist"""
     #     band = Band(name="boygenius", hometown="NYC")

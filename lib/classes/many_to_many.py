@@ -24,7 +24,7 @@ class Band:
         raise AttributeError("Hometown attribute is immutable.")
 
     def concerts(self):
-        return [concert for concert in Concert.all_concerts if concert.band == self]
+        return [concert for concert in Concert.all if concert.band == self]
 
     def venues(self):
         return list(set([concert.venue for concert in self.concerts()]))
@@ -33,19 +33,17 @@ class Band:
         return Concert(date, self, venue)
 
     def all_introductions(self):
-        return [
-            concert.introduction() for concert in self.concerts() if concert.introduction()
-        ]
+        return [concert.introduction() for concert in self.concerts() if concert.introduction()]
 
 
 class Concert:
-    all_concerts = []
+    all = []
 
     def __init__(self, date, band, venue):
         self.date = date
         self.band = band
         self.venue = venue
-        Concert.all_concerts.append(self)
+        Concert.all.append(self)
 
     @property
     def date(self):
@@ -115,7 +113,13 @@ class Venue:
             raise ValueError("City must be a non-empty string.")
 
     def concerts(self):
-        return [concert for concert in Concert.all_concerts if concert.venue == self]
+        return [concert for concert in Concert.all if concert.venue == self]
 
     def bands(self):
         return list({concert.band for concert in self.concerts()})
+
+    def concert_on(self, date):
+        for concert in self.concerts():
+            if concert.date == date:
+                return concert
+        return None
